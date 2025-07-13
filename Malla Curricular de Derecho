@@ -1,1 +1,76 @@
+function obtenerCreditosAprobados(aprobados) {
+  return cursos.reduce((total, curso, idx) => aprobados[idx] ? total + curso.creditos : total, 0);
+}
 
+function prerrequisitoCumplido(curso, aprobados, creditosAprobados) {
+  if (!curso.prereq) return true;
+  if (typeof curso.prereq === "string" && curso.prereq.endsWith("cr")) {
+    const requeridos = parseInt(curso.prereq);
+    return creditosAprobados >= requeridos;
+  }
+  // Si es código de curso
+  const idx = cursos.findIndex(c => c.codigo === curso.prereq);
+  return idx !== -1 && aprobados[idx];
+}
+
+function cargarMalla() {
+  const contenedor = document.getElementById('malla');
+  const creditosObtenidos = document.getElementById('creditos-obtenidos');
+  const aprobados = JSON.parse(localStorage.getItem('aprobadosDerecho')) || {};
+
+  const creditos = obtenerCreditosAprobados(aprobados);
+
+  // Agrupar cursos por semestre
+  const cursosPorSemestre = {};
+  cursos.forEach((curso, idx) => {
+    if (!cursosPorSemestre[curso.semestre]) cursosPorSemestre[curso.semestre] = [];
+    cursosPorSemestre[curso.semestre].push({ ...curso, idx });
+  });
+
+  contenedor.innerHTML = '';
+  Object.keys(cursosPorSemestre).sort((a, b) => a - b).forEach(semestre => {
+    const semDiv = document.createElement('div');
+    semDiv.className = 'semestre';
+    const semTitle = document.createElement('h2');
+    semTitle.textContent = `Semestre ${semestre}`;
+    semDiv.appendChild(semTitle);
+
+    cursosPorSemestre[semestre].forEach(curso => {
+      const cursoDiv = document.createElement('div');
+      cursoDiv.className = 'curso';
+      cursoDiv.dataset.idx = curso.idx;
+
+      // Verificar si está aprobado
+      if (aprobados[curso.idx]) cursoDiv.classList.add('aprobado');
+
+      // Verificar si está desbloqueado
+      if (!prerrequisitoCumplido(curso, aprobados, creditos)) {
+        cursoDiv.classList.add('bloqueado');
+        cursoDiv.title = "Debes aprobar el prerrequisito primero";
+      } else {
+        cursoDiv.onclick = () => marcarAprobado(curso.idx);
+      }
+
+      cursoDiv.innerHTML = `
+        <div class="nombre">${curso.nombre}</div>
+        <div class="creditos">Créditos: ${curso.creditos}</div>
+        ${curso.prereq ? `<div class="prereq">Prerrequisito: ${curso.prereq}</div>` : ""}
+      `;
+      semDiv.appendChild(cursoDiv);
+    });
+
+    contenedor.appendChild(semDiv);
+  });
+
+  creditosObtenidos.textContent = creditos;
+}
+
+function marcarAprobado(idx) {
+  const aprobados = JSON.parse(localStorage.getItem('aprobadosDerecho')) || {};
+  aprobados[idx] = !aprobados[idx];
+  localStorage.setItem('aprobadosDerecho', JSON.stringify(aprobados));
+  cargarMalla();
+}
+
+// Inicializar al cargar la página
+document.addEventListener('DOMContentLoaded', cargarMalla);
