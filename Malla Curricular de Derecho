@@ -1,1 +1,82 @@
+const cursos = [
+  // 1° periodo académico
+  { codigo: "24UCO0002", nombre: "ANTROPOLOGÍA Y SOCIOLOGÍA JURÍDICA", semestre: 1, creditos: 5, tipo: "Obligatorio", prereq: null },
+  { codigo: "24UCO0012", nombre: "ESTRATEGIAS Y HERRAMIENTAS DIGITALES PARA EL APRENDIZAJE", semestre: 1, creditos: 4, tipo: "Obligatorio", prereq: null },
+  { codigo: "24UCO0013", nombre: "FUNDAMENTOS DE MATEMÁTICA", semestre: 1, creditos: 4, tipo: "Obligatorio", prereq: null },
+  { codigo: "24UCO0007", nombre: "COMPRENSIÓN Y PRODUCCIÓN DE TEXTOS 1", semestre: 1, creditos: 3, tipo: "Obligatorio", prereq: null },
+  { codigo: "24UCO0038", nombre: "INTRODUCCIÓN AL DERECHO", semestre: 1, creditos: 3, tipo: "Obligatorio", prereq: null },
+  { codigo: "24UCO0040", nombre: "LABORATORIO DE LIDERAZGO E INNOVACIÓN", semestre: 1, creditos: 3, tipo: "Obligatorio", prereq: null },
 
+  // 2° periodo académico
+  { codigo: "24UCO0058", nombre: "COMPRENSIÓN Y PRODUCCIÓN DE TEXTOS 2", semestre: 2, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0007" },
+  { codigo: "24UCO0062", nombre: "DERECHO CONSTITUCIONAL I", semestre: 2, creditos: 4, tipo: "Obligatorio", prereq: "20cr" },
+  { codigo: "24UCO0079", nombre: "HISTORIA DEL DERECHO Y DERECHO ROMANO", semestre: 2, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0002" },
+  { codigo: "24UCO0063", nombre: "DERECHO DE PERSONAS", semestre: 2, creditos: 3, tipo: "Obligatorio", prereq: "24UCO0038" },
+  { codigo: "ELEC GENER", nombre: "ELECTIVO CICLO 02", semestre: 2, creditos: 0, tipo: "Electivo", prereq: null },
+  { codigo: "ELECT ESP1", nombre: "ELECTIVO CICLO 02", semestre: 2, creditos: 0, tipo: "Electivo", prereq: null },
+
+  // 3° periodo académico
+  { codigo: "24UCO0113", nombre: "ACTO JURÍDICO", semestre: 3, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0063" },
+  { codigo: "24UCO0288", nombre: "DERECHO CONSTITUCIONAL II", semestre: 3, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0062" },
+  { codigo: "24UCO0303", nombre: "DERECHO PENAL: PARTE GENERAL", semestre: 3, creditos: 4, tipo: "Obligatorio", prereq: "40cr" },
+  { codigo: "24UCO0417", nombre: "ESTADÍSTICA Y PROBABILIDADES", semestre: 3, creditos: 4, tipo: "Obligatorio", prereq: null },
+  { codigo: "24UCO0679", nombre: "LABORATORIO DE LIDERAZGO E INNOVACIÓN INTERMEDIO", semestre: 3, creditos: 2, tipo: "Obligatorio", prereq: "24UCO0040" },
+  { codigo: "ELEC GEN 2", nombre: "ELECTIVO CICLO 03", semestre: 3, creditos: 0, tipo: "Electivo", prereq: null },
+
+  // 4° periodo académico
+  { codigo: "24UCO0301", nombre: "DERECHO PENAL: PARTE ESPECIAL I", semestre: 4, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0303" },
+  { codigo: "24UCO0308", nombre: "DERECHO PROCESAL CONSTITUCIONAL", semestre: 4, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0288" },
+  { codigo: "24UCO0126", nombre: "TEORÍA GENERAL DEL PROCESO", semestre: 4, creditos: 4, tipo: "Obligatorio", prereq: "60cr" },
+  { codigo: "24UCO0397", nombre: "ENGLISH COURSE 1", semestre: 4, creditos: 3, tipo: "Obligatorio", prereq: "60cr" },
+  { codigo: "ELEC GEN 3", nombre: "ELECTIVO CICLO 04", semestre: 4, creditos: 0, tipo: "Electivo", prereq: null },
+  { codigo: "ELEC GEN 4", nombre: "ELECTIVO CICLO 04", semestre: 4, creditos: 0, tipo: "Electivo", prereq: null },
+
+  // 5° periodo académico
+  { codigo: "24UCO0306", nombre: "DERECHO PROCESAL CIVIL I", semestre: 5, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0126" },
+  { codigo: "24UCO0769", nombre: "OBLIGACIONES", semestre: 5, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0113" },
+  { codigo: "24UCO0282", nombre: "DEONTOLOGÍA JURÍDICA", semestre: 5, creditos: 3, tipo: "Obligatorio", prereq: "80cr" },
+  { codigo: "24UCO0302", nombre: "DERECHO PENAL: PARTE ESPECIAL II", semestre: 5, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0301" },
+  { codigo: "24UCO0398", nombre: "ENGLISH COURSE 2", semestre: 5, creditos: 3, tipo: "Obligatorio", prereq: "24UCO0397" },
+  { codigo: "24UCO0678", nombre: "LABORATORIO DE LIDERAZGO E INNOVACIÓN AVANZADO", semestre: 5, creditos: 3, tipo: "Obligatorio", prereq: "24UCO0679" },
+
+  // 6° periodo académico
+  { codigo: "24UCO0307", nombre: "DERECHO PROCESAL CIVIL II", semestre: 6, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0306" },
+  { codigo: "24UCO0501", nombre: "FUNDAMENTOS ECONÓMICOS Y CONTABLES", semestre: 6, creditos: 4, tipo: "Obligatorio", prereq: "100cr" },
+  { codigo: "24UCO0871", nombre: "REALES", semestre: 6, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0769" },
+  { codigo: "24UCO0310", nombre: "DERECHO PROCESAL PENAL I", semestre: 6, creditos: 3, tipo: "Obligatorio", prereq: "100cr" },
+  { codigo: "24UCO0399", nombre: "ENGLISH COURSE 3", semestre: 6, creditos: 3, tipo: "Obligatorio", prereq: "24UCO0398" },
+  { codigo: "24UCO0666", nombre: "INVESTIGACIÓN ACADÉMICA", semestre: 6, creditos: 3, tipo: "Obligatorio", prereq: null },
+
+  // 7° periodo académico
+  { codigo: "24UCO0263", nombre: "CONTRATOS", semestre: 7, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0871" },
+  { codigo: "24UCO0298", nombre: "DERECHO LABORAL I", semestre: 7, creditos: 4, tipo: "Obligatorio", prereq: "120cr" },
+  { codigo: "24UCO0456", nombre: "FILOSOFÍA DEL DERECHO", semestre: 7, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0282" },
+  { codigo: "24UCO0125", nombre: "ANÁLISIS ECONÓMICO DEL DERECHO", semestre: 7, creditos: 3, tipo: "Obligatorio", prereq: "190cr" },
+  { codigo: "24UCO0283", nombre: "DERECHO ADMINISTRATIVO", semestre: 7, creditos: 3, tipo: "Obligatorio", prereq: "120cr" },
+  { codigo: "24UCO0400", nombre: "ENGLISH COURSE 4", semestre: 7, creditos: 3, tipo: "Obligatorio", prereq: "24UCO0399" },
+  { codigo: "ELEC GEN 5", nombre: "ELECTIVO CICLO 07", semestre: 7, creditos: 0, tipo: "Electivo", prereq: null },
+
+  // 8° periodo académico
+  { codigo: "24UCO0311", nombre: "DERECHO PROCESAL PENAL II", semestre: 8, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0310" },
+  { codigo: "24UCO0312", nombre: "DERECHO SOCIETARIO Y CORPORATIVO", semestre: 8, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0263" },
+  { codigo: "24UCO0289", nombre: "DERECHO DE FAMILIA", semestre: 8, creditos: 3, tipo: "Obligatorio", prereq: "140cr" },
+  { codigo: "24UCO0299", nombre: "DERECHO LABORAL II", semestre: 8, creditos: 3, tipo: "Obligatorio", prereq: "24UCO0298" },
+  { codigo: "24UCO0305", nombre: "DERECHO PROCESAL ADMINISTRATIVO", semestre: 8, creditos: 3, tipo: "Obligatorio", prereq: "24UCO0283" },
+  { codigo: "24UCO0721", nombre: "MECANISMOS ALTERNATIVOS PARA LA RESOLUCIÓN DE CONFLICTOS", semestre: 8, creditos: 3, tipo: "Obligatorio", prereq: "24UCO0307" },
+
+  // 9° periodo académico
+  { codigo: "24UCO0309", nombre: "DERECHO PROCESAL LABORAL", semestre: 9, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0299" },
+  { codigo: "24UCO0313", nombre: "DERECHO TRIBUTARIO I", semestre: 9, creditos: 4, tipo: "Obligatorio", prereq: "160cr" },
+  { codigo: "24UCO0690", nombre: "LITIGACIÓN ORAL", semestre: 9, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0311" },
+  { codigo: "24UCO0767", nombre: "NOTARIADO Y REGISTRO PÚBLICO", semestre: 9, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0305" },
+  { codigo: "24UCO0293", nombre: "DERECHO DE SUCESIONES", semestre: 9, creditos: 3, tipo: "Obligatorio", prereq: "24UCO0289" },
+  { codigo: "ELEC ESP 2", nombre: "ELECTIVO CICLO 09", semestre: 9, creditos: 0, tipo: "Electivo", prereq: null },
+
+  // 10° periodo académico
+  { codigo: "24UCO0290", nombre: "DERECHO DE LA COMPETENCIA Y DEL CONSUMO", semestre: 10, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0312" },
+  { codigo: "24UCO0314", nombre: "DERECHO TRIBUTARIO II", semestre: 10, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0313" },
+  { codigo: "24UCO0870", nombre: "RAZONAMIENTO Y ARGUMENTACIÓN JURÍDICA", semestre: 10, creditos: 4, tipo: "Obligatorio", prereq: "180cr" },
+  { codigo: "24UCO0261", nombre: "CONTRATACIONES CON EL ESTADO", semestre: 10, creditos: 3, tipo: "Obligatorio", prereq: "180cr" },
+  { codigo: "24UCO0296", nombre: "DERECHO INTERNACIONAL PÚBLICO", semestre: 10, creditos: 3, tipo: "Obligatorio", prereq: "180cr" },
+  { codigo: "ELEC ESP 3", nombre: "ELECTIVO CICLO 10", semestre: 10, creditos: 0, tipo: "Electivo", prereq: null }
+];
