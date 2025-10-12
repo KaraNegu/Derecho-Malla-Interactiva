@@ -1,27 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Malla Curricular Interactiva - Derecho</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Malla Curricular Derecho</title>
+  <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-  <header>
-    <h1>Malla Curricular Derecho - Universidad Continental</h1>
-  </header>
-  <main>
-    <div id="malla" class="malla-container"></div>
-  </main>
-  <footer>
-    <div class="creditos">
-      Créditos obtenidos: <span id="creditos-obtenidos">0</span>
+  <div class="header">
+    <h1>Malla Curricular Derecho</h1>
+    <div class="creditos-totales">
+      Créditos totales: <span id="total-creditos">252</span>
+      | Créditos aprobados: <span id="creditos-aprobados">0</span>
     </div>
-  </footer>
-  <script src="data.js"></script>
-  <script src="app.js"></script>
+  </div>
+  <div id="malla">
+    <!-- Se insertan aquí los cuadros de materias -->
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
