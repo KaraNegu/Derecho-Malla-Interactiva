@@ -1,82 +1,142 @@
-const cursos = [
-  // 1° periodo académico
-  { codigo: "24UCO0002", nombre: "ANTROPOLOGÍA Y SOCIOLOGÍA JURÍDICA", semestre: 1, creditos: 5, tipo: "Obligatorio", prereq: null },
-  { codigo: "24UCO0012", nombre: "ESTRATEGIAS Y HERRAMIENTAS DIGITALES PARA EL APRENDIZAJE", semestre: 1, creditos: 4, tipo: "Obligatorio", prereq: null },
-  { codigo: "24UCO0013", nombre: "FUNDAMENTOS DE MATEMÁTICA", semestre: 1, creditos: 4, tipo: "Obligatorio", prereq: null },
-  { codigo: "24UCO0007", nombre: "COMPRENSIÓN Y PRODUCCIÓN DE TEXTOS 1", semestre: 1, creditos: 3, tipo: "Obligatorio", prereq: null },
-  { codigo: "24UCO0038", nombre: "INTRODUCCIÓN AL DERECHO", semestre: 1, creditos: 3, tipo: "Obligatorio", prereq: null },
-  { codigo: "24UCO0040", nombre: "LABORATORIO DE LIDERAZGO E INNOVACIÓN", semestre: 1, creditos: 3, tipo: "Obligatorio", prereq: null },
+const materias = [
+  // 1er período académico
+  {nombre:"ANTROPOLOGÍA Y SOCIOLOGÍA JURÍDICA", codigo:"24UC00002", creditos:5, periodo:1, requisito:[], tipo:"obligatoria"},
+  {nombre:"ESTRATEGIAS Y HERRAMIENTAS DIGITALES PARA EL APRENDIZAJE", codigo:"24UC00012", creditos:4, periodo:1, requisito:[], tipo:"obligatoria"},
+  {nombre:"FUNDAMENTOS DE MATEMÁTICA", codigo:"24UC00013", creditos:4, periodo:1, requisito:[], tipo:"obligatoria"},
+  {nombre:"COMPRENSIÓN Y PRODUCCIÓN DE TEXTOS I", codigo:"24UC00007", creditos:3, periodo:1, requisito:[], tipo:"obligatoria"},
+  {nombre:"INTRODUCCIÓN AL DERECHO", codigo:"24UC00038", creditos:3, periodo:1, requisito:[], tipo:"obligatoria"},
+  {nombre:"LABORATORIO DE LIDERAZGO E INNOVACIÓN", codigo:"24UC00040", creditos:3, periodo:1, requisito:[], tipo:"obligatoria"},
 
-  // 2° periodo académico
-  { codigo: "24UCO0058", nombre: "COMPRENSIÓN Y PRODUCCIÓN DE TEXTOS 2", semestre: 2, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0007" },
-  { codigo: "24UCO0062", nombre: "DERECHO CONSTITUCIONAL I", semestre: 2, creditos: 4, tipo: "Obligatorio", prereq: "20cr" },
-  { codigo: "24UCO0079", nombre: "HISTORIA DEL DERECHO Y DERECHO ROMANO", semestre: 2, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0002" },
-  { codigo: "24UCO0063", nombre: "DERECHO DE PERSONAS", semestre: 2, creditos: 3, tipo: "Obligatorio", prereq: "24UCO0038" },
-  { codigo: "ELEC GENER", nombre: "ELECTIVO CICLO 02", semestre: 2, creditos: 0, tipo: "Electivo", prereq: null },
-  { codigo: "ELECT ESP1", nombre: "ELECTIVO CICLO 02", semestre: 2, creditos: 0, tipo: "Electivo", prereq: null },
+  // 2do período académico
+  {nombre:"COMPRENSIÓN Y PRODUCCIÓN DE TEXTOS 2", codigo:"24UC00058", creditos:4, periodo:2, requisito:["24UC00007"], tipo:"obligatoria"},
+  {nombre:"DERECHO CONSTITUCIONAL I", codigo:"24UC00062", creditos:4, periodo:2, requisito:[], tipo:"obligatoria"}, // Requisito: 20 cr. aprobados
+  {nombre:"HISTORIA DEL DERECHO Y DERECHO ROMANO", codigo:"24UC00079", creditos:4, periodo:2, requisito:["24UC00002"], tipo:"obligatoria"},
+  {nombre:"DERECHO DE PERSONAS", codigo:"24UC00063", creditos:3, periodo:2, requisito:["24UC00038"], tipo:"obligatoria"},
+  {nombre:"Electivo Ciclo 02 (GEN)", codigo:"ELEC GENER", creditos:0, periodo:2, requisito:[], tipo:"electiva"},
+  {nombre:"Electivo Ciclo 02 (ESP1)", codigo:"ELECT ESP1", creditos:0, periodo:2, requisito:[], tipo:"electiva"},
 
-  // 3° periodo académico
-  { codigo: "24UCO0113", nombre: "ACTO JURÍDICO", semestre: 3, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0063" },
-  { codigo: "24UCO0288", nombre: "DERECHO CONSTITUCIONAL II", semestre: 3, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0062" },
-  { codigo: "24UCO0303", nombre: "DERECHO PENAL: PARTE GENERAL", semestre: 3, creditos: 4, tipo: "Obligatorio", prereq: "40cr" },
-  { codigo: "24UCO0417", nombre: "ESTADÍSTICA Y PROBABILIDADES", semestre: 3, creditos: 4, tipo: "Obligatorio", prereq: null },
-  { codigo: "24UCO0679", nombre: "LABORATORIO DE LIDERAZGO E INNOVACIÓN INTERMEDIO", semestre: 3, creditos: 2, tipo: "Obligatorio", prereq: "24UCO0040" },
-  { codigo: "ELEC GEN 2", nombre: "ELECTIVO CICLO 03", semestre: 3, creditos: 0, tipo: "Electivo", prereq: null },
+  // 3er período académico
+  {nombre:"ACTO JURÍDICO", codigo:"24UC00113", creditos:4, periodo:3, requisito:["24UC00063"], tipo:"obligatoria"},
+  {nombre:"DERECHO CONSTITUCIONAL II", codigo:"24UC00288", creditos:4, periodo:3, requisito:["24UC00062"], tipo:"obligatoria"},
+  {nombre:"DERECHO PENAL: PARTE GENERAL", codigo:"24UC00303", creditos:4, periodo:3, requisito:[], tipo:"obligatoria"},
+  {nombre:"ESTADÍSTICA Y PROBABILIDADES", codigo:"24UC00417", creditos:4, periodo:3, requisito:[], tipo:"obligatoria"},
+  {nombre:"LABORATORIO DE LIDERAZGO E INNOVACIÓN INTERMEDIO", codigo:"24UC00679", creditos:2, periodo:3, requisito:["24UC00040"], tipo:"obligatoria"},
+  {nombre:"Electivo Ciclo 03 (GEN2)", codigo:"ELEC GEN 2", creditos:0, periodo:3, requisito:[], tipo:"electiva"},
 
-  // 4° periodo académico
-  { codigo: "24UCO0301", nombre: "DERECHO PENAL: PARTE ESPECIAL I", semestre: 4, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0303" },
-  { codigo: "24UCO0308", nombre: "DERECHO PROCESAL CONSTITUCIONAL", semestre: 4, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0288" },
-  { codigo: "24UCO0126", nombre: "TEORÍA GENERAL DEL PROCESO", semestre: 4, creditos: 4, tipo: "Obligatorio", prereq: "60cr" },
-  { codigo: "24UCO0397", nombre: "ENGLISH COURSE 1", semestre: 4, creditos: 3, tipo: "Obligatorio", prereq: "60cr" },
-  { codigo: "ELEC GEN 3", nombre: "ELECTIVO CICLO 04", semestre: 4, creditos: 0, tipo: "Electivo", prereq: null },
-  { codigo: "ELEC GEN 4", nombre: "ELECTIVO CICLO 04", semestre: 4, creditos: 0, tipo: "Electivo", prereq: null },
+  // 4to período académico
+  {nombre:"DERECHO PENAL: PARTE ESPECIAL I", codigo:"24UC00301", creditos:4, periodo:4, requisito:["24UC00303"], tipo:"obligatoria"},
+  {nombre:"DERECHO PROCESAL CONSTITUCIONAL", codigo:"24UC00308", creditos:4, periodo:4, requisito:["24UC00288"], tipo:"obligatoria"},
+  {nombre:"TEORÍA GENERAL DEL PROCESO", codigo:"24UC01026", creditos:4, periodo:4, requisito:[], tipo:"obligatoria"},
+  {nombre:"ENGLISH COURSE 1", codigo:"24UC00397", creditos:3, periodo:4, requisito:[], tipo:"obligatoria"},
+  {nombre:"Electivo Ciclo 04 (GEN3)", codigo:"ELEC GEN 3", creditos:0, periodo:4, requisito:[], tipo:"electiva"},
+  {nombre:"Electivo Ciclo 04 (GEN4)", codigo:"ELEC GEN 4", creditos:0, periodo:4, requisito:[], tipo:"electiva"},
 
-  // 5° periodo académico
-  { codigo: "24UCO0306", nombre: "DERECHO PROCESAL CIVIL I", semestre: 5, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0126" },
-  { codigo: "24UCO0769", nombre: "OBLIGACIONES", semestre: 5, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0113" },
-  { codigo: "24UCO0282", nombre: "DEONTOLOGÍA JURÍDICA", semestre: 5, creditos: 3, tipo: "Obligatorio", prereq: "80cr" },
-  { codigo: "24UCO0302", nombre: "DERECHO PENAL: PARTE ESPECIAL II", semestre: 5, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0301" },
-  { codigo: "24UCO0398", nombre: "ENGLISH COURSE 2", semestre: 5, creditos: 3, tipo: "Obligatorio", prereq: "24UCO0397" },
-  { codigo: "24UCO0678", nombre: "LABORATORIO DE LIDERAZGO E INNOVACIÓN AVANZADO", semestre: 5, creditos: 3, tipo: "Obligatorio", prereq: "24UCO0679" },
+  // 5to período académico
+  {nombre:"DERECHO PROCESAL CIVIL I", codigo:"24UC00306", creditos:4, periodo:5, requisito:["24UC01026"], tipo:"obligatoria"},
+  {nombre:"OBLIGACIONES", codigo:"24UC00769", creditos:4, periodo:5, requisito:["24UC00113"], tipo:"obligatoria"},
+  {nombre:"DEONTOLOGÍA JURÍDICA", codigo:"24UC00282", creditos:3, periodo:5, requisito:[], tipo:"obligatoria"}, // 80 cr. aprobados
+  {nombre:"DERECHO PENAL: PARTE ESPECIAL II", codigo:"24UC00302", creditos:3, periodo:5, requisito:["24UC00301"], tipo:"obligatoria"},
+  {nombre:"ENGLISH COURSE 2", codigo:"24UC00398", creditos:3, periodo:5, requisito:["24UC00397"], tipo:"obligatoria"},
+  {nombre:"LABORATORIO DE LIDERAZGO E INNOVACIÓN AVANZADO", codigo:"24UC00678", creditos:3, periodo:5, requisito:["24UC00679"], tipo:"obligatoria"},
 
-  // 6° periodo académico
-  { codigo: "24UCO0307", nombre: "DERECHO PROCESAL CIVIL II", semestre: 6, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0306" },
-  { codigo: "24UCO0501", nombre: "FUNDAMENTOS ECONÓMICOS Y CONTABLES", semestre: 6, creditos: 4, tipo: "Obligatorio", prereq: "100cr" },
-  { codigo: "24UCO0871", nombre: "REALES", semestre: 6, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0769" },
-  { codigo: "24UCO0310", nombre: "DERECHO PROCESAL PENAL I", semestre: 6, creditos: 3, tipo: "Obligatorio", prereq: "100cr" },
-  { codigo: "24UCO0399", nombre: "ENGLISH COURSE 3", semestre: 6, creditos: 3, tipo: "Obligatorio", prereq: "24UCO0398" },
-  { codigo: "24UCO0666", nombre: "INVESTIGACIÓN ACADÉMICA", semestre: 6, creditos: 3, tipo: "Obligatorio", prereq: null },
+  // 6to período académico
+  {nombre:"DERECHO PROCESAL CIVIL II", codigo:"24UC00307", creditos:4, periodo:6, requisito:["24UC00306"], tipo:"obligatoria"},
+  {nombre:"FUNDAMENTOS ECONÓMICOS Y CONTABLES", codigo:"24UC00501", creditos:4, periodo:6, requisito:[], tipo:"obligatoria"},
+  {nombre:"REALES", codigo:"24UC00871", creditos:3, periodo:6, requisito:["24UC00769"], tipo:"obligatoria"},
+  {nombre:"DERECHO PROCESAL PENAL I", codigo:"24UC00310", creditos:3, periodo:6, requisito:[], tipo:"obligatoria"},
+  {nombre:"ENGLISH COURSE 3", codigo:"24UC00399", creditos:3, periodo:6, requisito:["24UC00398"], tipo:"obligatoria"},
+  {nombre:"INVESTIGACIÓN ACADÉMICA", codigo:"24UC00666", creditos:3, periodo:6, requisito:["24UC00145","24UC00527","24UC00540","24UC00800","24UC01063"], tipo:"obligatoria"},
 
-  // 7° periodo académico
-  { codigo: "24UCO0263", nombre: "CONTRATOS", semestre: 7, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0871" },
-  { codigo: "24UCO0298", nombre: "DERECHO LABORAL I", semestre: 7, creditos: 4, tipo: "Obligatorio", prereq: "120cr" },
-  { codigo: "24UCO0456", nombre: "FILOSOFÍA DEL DERECHO", semestre: 7, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0282" },
-  { codigo: "24UCO0125", nombre: "ANÁLISIS ECONÓMICO DEL DERECHO", semestre: 7, creditos: 3, tipo: "Obligatorio", prereq: "190cr" },
-  { codigo: "24UCO0283", nombre: "DERECHO ADMINISTRATIVO", semestre: 7, creditos: 3, tipo: "Obligatorio", prereq: "120cr" },
-  { codigo: "24UCO0400", nombre: "ENGLISH COURSE 4", semestre: 7, creditos: 3, tipo: "Obligatorio", prereq: "24UCO0399" },
-  { codigo: "ELEC GEN 5", nombre: "ELECTIVO CICLO 07", semestre: 7, creditos: 0, tipo: "Electivo", prereq: null },
+  // 7mo período académico
+  {nombre:"CONTRATOS", codigo:"24UC00263", creditos:4, periodo:7, requisito:["24UC00871"], tipo:"obligatoria"},
+  {nombre:"DERECHO LABORAL I", codigo:"24UC00298", creditos:4, periodo:7, requisito:[], tipo:"obligatoria"},
+  {nombre:"FILOSOFÍA DEL DERECHO", codigo:"24UC00456", creditos:4, periodo:7, requisito:["24UC00282"], tipo:"obligatoria"},
+  {nombre:"ANÁLISIS ECONÓMICO DEL DERECHO", codigo:"24UC00125", creditos:3, periodo:7, requisito:[], tipo:"obligatoria"},
+  {nombre:"DERECHO ADMINISTRATIVO", codigo:"24UC00283", creditos:3, periodo:7, requisito:[], tipo:"obligatoria"},
+  {nombre:"ENGLISH COURSE 4", codigo:"24UC00400", creditos:3, periodo:7, requisito:["24UC00399"], tipo:"obligatoria"},
+  {nombre:"Electivo Ciclo 07 GEN5", codigo:"ELEC GEN 5", creditos:0, periodo:7, requisito:[], tipo:"electiva"},
 
-  // 8° periodo académico
-  { codigo: "24UCO0311", nombre: "DERECHO PROCESAL PENAL II", semestre: 8, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0310" },
-  { codigo: "24UCO0312", nombre: "DERECHO SOCIETARIO Y CORPORATIVO", semestre: 8, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0263" },
-  { codigo: "24UCO0289", nombre: "DERECHO DE FAMILIA", semestre: 8, creditos: 3, tipo: "Obligatorio", prereq: "140cr" },
-  { codigo: "24UCO0299", nombre: "DERECHO LABORAL II", semestre: 8, creditos: 3, tipo: "Obligatorio", prereq: "24UCO0298" },
-  { codigo: "24UCO0305", nombre: "DERECHO PROCESAL ADMINISTRATIVO", semestre: 8, creditos: 3, tipo: "Obligatorio", prereq: "24UCO0283" },
-  { codigo: "24UCO0721", nombre: "MECANISMOS ALTERNATIVOS PARA LA RESOLUCIÓN DE CONFLICTOS", semestre: 8, creditos: 3, tipo: "Obligatorio", prereq: "24UCO0307" },
+  // 8vo período académico
+  {nombre:"DERECHO PROCESAL PENAL II", codigo:"24UC00311", creditos:4, periodo:8, requisito:["24UC00310"], tipo:"obligatoria"},
+  {nombre:"DERECHO SOCIETARIO Y CORPORATIVO", codigo:"24UC00312", creditos:4, periodo:8, requisito:["24UC00263"], tipo:"obligatoria"},
+  {nombre:"DERECHO DE FAMILIA", codigo:"24UC00289", creditos:3, periodo:8, requisito:[], tipo:"obligatoria"},
+  {nombre:"DERECHO LABORAL II", codigo:"24UC00299", creditos:3, periodo:8, requisito:["24UC00298"], tipo:"obligatoria"},
+  {nombre:"DERECHO PROCESAL ADMINISTRATIVO", codigo:"24UC00305", creditos:3, periodo:8, requisito:["24UC00283"], tipo:"obligatoria"},
+  {nombre:"MECANISMOS ALTERNATIVOS PARA LA RESOLUCIÓN DE CONFLICTOS", codigo:"24UC00721", creditos:3, periodo:8, requisito:["24UC00307"], tipo:"obligatoria"},
 
-  // 9° periodo académico
-  { codigo: "24UCO0309", nombre: "DERECHO PROCESAL LABORAL", semestre: 9, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0299" },
-  { codigo: "24UCO0313", nombre: "DERECHO TRIBUTARIO I", semestre: 9, creditos: 4, tipo: "Obligatorio", prereq: "160cr" },
-  { codigo: "24UCO0690", nombre: "LITIGACIÓN ORAL", semestre: 9, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0311" },
-  { codigo: "24UCO0767", nombre: "NOTARIADO Y REGISTRO PÚBLICO", semestre: 9, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0305" },
-  { codigo: "24UCO0293", nombre: "DERECHO DE SUCESIONES", semestre: 9, creditos: 3, tipo: "Obligatorio", prereq: "24UCO0289" },
-  { codigo: "ELEC ESP 2", nombre: "ELECTIVO CICLO 09", semestre: 9, creditos: 0, tipo: "Electivo", prereq: null },
+  // 9no período académico
+  {nombre:"DERECHO PROCESAL LABORAL", codigo:"24UC00309", creditos:4, periodo:9, requisito:["24UC00299"], tipo:"obligatoria"},
+  {nombre:"DERECHO TRIBUTARIO I", codigo:"24UC00313", creditos:4, periodo:9, requisito:[], tipo:"obligatoria"},
+  {nombre:"LITIGACIÓN ORAL", codigo:"24UC00690", creditos:4, periodo:9, requisito:["24UC00311"], tipo:"obligatoria"},
+  {nombre:"NOTARIADO Y REGISTRO PÚBLICO", codigo:"24UC00767", creditos:3, periodo:9, requisito:["24UC00305"], tipo:"obligatoria"},
+  {nombre:"DERECHO DE SUCESIONES", codigo:"24UC00293", creditos:3, periodo:9, requisito:["24UC00289"], tipo:"obligatoria"},
+  {nombre:"Electivo Ciclo 09 ESP2", codigo:"ELEC ESP2", creditos:0, periodo:9, requisito:[], tipo:"electiva"},
 
-  // 10° periodo académico
-  { codigo: "24UCO0290", nombre: "DERECHO DE LA COMPETENCIA Y DEL CONSUMO", semestre: 10, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0312" },
-  { codigo: "24UCO0314", nombre: "DERECHO TRIBUTARIO II", semestre: 10, creditos: 4, tipo: "Obligatorio", prereq: "24UCO0313" },
-  { codigo: "24UCO0870", nombre: "RAZONAMIENTO Y ARGUMENTACIÓN JURÍDICA", semestre: 10, creditos: 4, tipo: "Obligatorio", prereq: "180cr" },
-  { codigo: "24UCO0261", nombre: "CONTRATACIONES CON EL ESTADO", semestre: 10, creditos: 3, tipo: "Obligatorio", prereq: "180cr" },
-  { codigo: "24UCO0296", nombre: "DERECHO INTERNACIONAL PÚBLICO", semestre: 10, creditos: 3, tipo: "Obligatorio", prereq: "180cr" },
-  { codigo: "ELEC ESP 3", nombre: "ELECTIVO CICLO 10", semestre: 10, creditos: 0, tipo: "Electivo", prereq: null }
+  // 10mo período académico
+  {nombre:"DERECHO DE LA COMPETENCIA Y DEL CONSUMO", codigo:"24UC00290", creditos:4, periodo:10, requisito:["24UC00312"], tipo:"obligatoria"},
+  {nombre:"DERECHO TRIBUTARIO II", codigo:"24UC00314", creditos:4, periodo:10, requisito:["24UC00313"], tipo:"obligatoria"},
+  {nombre:"RAZONAMIENTO Y ARGUMENTACIÓN JURÍDICA", codigo:"24UC00870", creditos:4, periodo:10, requisito:[], tipo:"obligatoria"},
+  {nombre:"CONTRATACIONES CON EL ESTADO", codigo:"24UC00261", creditos:3, periodo:10, requisito:[], tipo:"obligatoria"},
+  {nombre:"DERECHO INTERNACIONAL PÚBLICO", codigo:"24UC00296", creditos:3, periodo:10, requisito:[], tipo:"obligatoria"},
+  {nombre:"Electivo Ciclo 10 ESP3", codigo:"ELEC ESP3", creditos:0, periodo:10, requisito:[], tipo:"electiva"},
+
+  // 11er período académico
+  {nombre:"SEMINARIO DE RESPONSABILIDAD CIVIL", codigo:"24UC00902", creditos:4, periodo:11, requisito:["24UC00870"], tipo:"obligatoria"},
+  {nombre:"TALLER DE INVESTIGACIÓN 1 DERECHO", codigo:"24UC00957", creditos:4, periodo:11, requisito:["24UC00666"], tipo:"obligatoria"},
+  {nombre:"COMERCIO INTERNACIONAL", codigo:"24UC00225", creditos:3, periodo:11, requisito:[], tipo:"obligatoria"},
+  {nombre:"DERECHO DE LA REGULACIÓN", codigo:"24UC00292", creditos:3, periodo:11, requisito:[], tipo:"obligatoria"},
+  {nombre:"SEMINARIO DE PENAL Y PROCESAL PENAL", codigo:"24UC00901", creditos:3, periodo:11, requisito:[], tipo:"obligatoria"},
+  {nombre:"Electivo Ciclo 11 ESP4", codigo:"ELEC ESP4", creditos:0, periodo:11, requisito:[], tipo:"electiva"},
+  {nombre:"ARBITRAJE", codigo:"24UC00143", creditos:3, periodo:11, requisito:[], tipo:"obligatoria"},
+  {nombre:"DERECHO PENAL EMPRESARIAL", codigo:"24UC00300", creditos:3, periodo:11, requisito:[], tipo:"obligatoria"},
+  {nombre:"GESTIÓN PÚBLICA PARA DERECHO", codigo:"24UC00562", creditos:3, periodo:11, requisito:[], tipo:"obligatoria"},
+
+  // 12do período académico
+  {nombre:"DERECHO AMBIENTAL Y DE MINERÍA", codigo:"24UC00286", creditos:4, periodo:12, requisito:[], tipo:"obligatoria"},
+  {nombre:"TALLER DE INVESTIGACIÓN 2 DERECHO", codigo:"24UC00970", creditos:4, periodo:12, requisito:["24UC00957"], tipo:"obligatoria"},
+  {nombre:"CIBERCRIMEN Y DELITOS INFORMÁTICOS", codigo:"24UC00202", creditos:3, periodo:12, requisito:["24UC00901"], tipo:"obligatoria"},
+  {nombre:"DERECHO INTERNACIONAL PRIVADO", codigo:"24UC00295", creditos:3, periodo:12, requisito:["24UC00296"], tipo:"obligatoria"},
+  {nombre:"DERECHOS HUMANOS Y DERECHO COMUNITARIO", codigo:"24UC00315", creditos:3, periodo:12, requisito:["24UC00308"], tipo:"obligatoria"},
+  {nombre:"SEMINARIO DE CIVIL Y PROCESAL CIVIL", codigo:"24UC00898", creditos:3, periodo:12, requisito:["24UC00902"], tipo:"obligatoria"}
 ];
+
+const aprobadas = new Set();
+
+function creditosAprobados() {
+  return materias.reduce((acc, m) =>
+    acc + (aprobadas.has(m.codigo) ? m.creditos : 0), 0
+  );
+}
+
+function generarMalla() {
+  const cont = document.getElementById("malla");
+  cont.innerHTML = "";
+  materias.forEach(m => {
+    let bloqueado = m.requisito.length > 0 && !m.requisito.every(r => aprobadas.has(r));
+    let electiva = m.tipo === 'electiva';
+
+    let div = document.createElement("div");
+    div.className = "cuadro-ramo" + (aprobadas.has(m.codigo) ? " aprobado" : "") + (bloqueado ? " bloqueado" : "") + (electiva ? " electiva" : "");
+
+    div.innerHTML = `
+      <div class="titulo">${m.nombre}</div>
+      <div class="codigo">${m.codigo} - ${m.tipo.charAt(0).toUpperCase()+m.tipo.slice(1)}</div>
+      <div class="creditos">Créditos: ${m.creditos}</div>
+      <div class="reqs">${m.requisito.length ? "Requiere: " + m.requisito.join(', ') : ""}</div>
+      <button class="boton">
+        ${electiva ? (aprobadas.has(m.codigo) ? "Elegido" : "Elegir") : (aprobadas.has(m.codigo) ? "Aprobado" : "Aprobar")}
+      </button>
+    `;
+    div.querySelector(".boton").onclick = function () {
+      if (!aprobadas.has(m.codigo)) aprobadas.add(m.codigo);
+      else if (electiva) aprobadas.delete(m.codigo);
+      generarMalla();
+      document.getElementById("creditos-aprobados").textContent = creditosAprobados();
+    };
+    cont.appendChild(div);
+  });
+
+  document.getElementById("creditos-aprobados").textContent = creditosAprobados();
+}
+
+window.onload = generarMalla;
